@@ -1,22 +1,28 @@
 package com.alessandro.meteograppa;
 
 import android.app.Activity;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.hardware.SensorManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.AdapterView;
 
 
 public class MeteoGrappa extends ActionBarActivity
@@ -31,10 +37,19 @@ public class MeteoGrappa extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    private WebView mWebView;
+    private String url = "http://192.168.0.2:8080/MeteoGrappaServer/";
+    private ViewGroup[] tabs;
+    private Spinner[] graphSettings;
+    private String[] typeValueGraph;
+    private String graphUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        url = "http://192.168.0.2:8080/MeteoGrappaServer/";
+        graphUrl = "http://192.168.0.2:8080/MeteoGrappaServer/graph.jsp";
+
         setContentView(R.layout.activity_meteo_grappa);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -45,6 +60,28 @@ public class MeteoGrappa extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+        mWebView = (WebView) findViewById(R.id.graphBrowser);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setLoadsImagesAutomatically(true);
+        mWebView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return (event.getAction() == MotionEvent.ACTION_MOVE);
+            }
+        });
+        mWebView.setWebViewClient(new WebViewClient());
+        mWebView.loadUrl(graphUrl);
+        tabs = new ViewGroup[2];
+        tabs[0] = (ViewGroup) findViewById(R.id.home);
+        tabs[1] = (ViewGroup) findViewById(R.id.grafici);
+        tabs[1].setVisibility(View.INVISIBLE);
+        tabs[0].setVisibility(View.VISIBLE);
+        graphSettings = new Spinner[2];
+        graphSettings[0] = (Spinner) findViewById(R.id.variable);
+        graphSettings[1] = (Spinner) findViewById(R.id.type);
+        addListenerOnSpinnerItemSelection();
+        Resources res = getResources();
+        typeValueGraph = res.getStringArray(R.array.type_value_array);
     }
 
     @Override
@@ -63,9 +100,6 @@ public class MeteoGrappa extends ActionBarActivity
                 break;
             case 2:
                 mTitle = getString(R.string.title_section2);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_section3);
                 break;
         }
     }
@@ -104,6 +138,11 @@ public class MeteoGrappa extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     /**
@@ -146,4 +185,31 @@ public class MeteoGrappa extends ActionBarActivity
         }
     }
 
+    public void watch (int position){
+        if (tabs != null)
+            for (int i=0; i<tabs.length; i++) {
+                if (i == position)
+                    tabs[i].setVisibility(View.VISIBLE);
+                else
+                    tabs[i].setVisibility(View.INVISIBLE);
+            }
+    }
+
+    public void addListenerOnSpinnerItemSelection() {
+        if (graphSettings != null)
+            for (int i = 0; i < graphSettings.length; i++)
+                graphSettings[i].setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                        public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
+                            WebView graphBrowser = (WebView) findViewById(R.id.graphBrowser);
+                            graphUrl = url + "graph.jsp?type="+String.valueOf(graphSettings[0].getSelectedItemId())+"&each="+ typeValueGraph[(int)graphSettings[1].getSelectedItemId()];
+                            graphBrowser.loadUrl(graphUrl);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> arg0) {
+                            // TODO Auto-generated method stub
+                        }
+                });
+    }
 }

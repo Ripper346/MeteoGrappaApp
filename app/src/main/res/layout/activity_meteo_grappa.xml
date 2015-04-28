@@ -1,29 +1,388 @@
 <!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/drawer_layout"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".MeteoGrappa">
 
     <!-- As the main content view, the view below consumes the entire
          space available using match_parent in both dimensions. -->
-    <FrameLayout android:id="@+id/container" android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Meteo sul monte Grappa"
-            android:id="@+id/title"
-            android:layout_gravity="center_horizontal|top"
-            android:layout_marginTop="100px" />
+        <LinearLayout
+            android:id="@+id/grafici"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:visibility="invisible">
 
-        <WebView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/browser"
-            android:layout_gravity="top|left|bottom|center|right"
-            android:layout_marginTop="200px" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/variable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/graphs_array"
+                    android:spinnerMode="dropdown" />
+
+                <Spinner
+                    android:id="@+id/type"
+                    android:layout_width="167dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|top"
+                    android:entries="@array/type_array"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
+            <WebView
+                android:id="@+id/graphBrowser"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/home"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:scrollbars="none"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TableLayout
+                    android:id="@+id/home_table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginRight="30px"
+                    android:layout_marginTop="50px"
+                    android:isScrollContainer="false"
+                    android:gravity="top|left|right"
+                    android:layout_gravity="center_horizontal">
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:id="@+id/datetime_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:text="Ultimo aggiornamento: "
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/datetime_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:text="01/01/1970 00:00"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAllCaps="false"
+                            android:layout_marginLeft="10px" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginTop="50px">
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:id="@+id/condition_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_span="2"
+                            android:autoText="false"
+                            android:text="Condizione"
+                            android:textAlignment="gravity"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:gravity="center_horizontal" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:id="@+id/temperature_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:text="Temperatura"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/temperature_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:text="0.0°C"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAllCaps="false"
+                            android:layout_marginLeft="10px" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:id="@+id/feel_temperature_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:text="Temperatura percepita"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/feel_temperature_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:text="0.0°C"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAllCaps="false"
+                            android:layout_marginLeft="10px" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:id="@+id/humidity_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:text="Umidità"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/humidity_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:text="100%"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAllCaps="false"
+                            android:layout_marginLeft="10px" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:id="@+id/wind_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:text="Velocità del vento"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TableLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <TableRow
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent">
+
+                                <TextView
+                                    android:id="@+id/wind_speed_value"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_column="0"
+                                    android:text="20.0 km/h"
+                                    android:textAppearance="?android:attr/textAppearanceMedium"
+                                    android:textAllCaps="false"
+                                    android:layout_marginLeft="10px" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/wind_direction_image"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/arrow"
+                                    android:layout_marginLeft="7px" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceMedium"
+                                    android:text="N"
+                                    android:id="@+id/wind_direction_value"
+                                    android:layout_marginLeft="7px" />
+                            </TableRow>
+
+                        </TableLayout>
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:id="@+id/pressure_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:text="Pressione"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/pressure_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:text="1000.0 hPa"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAllCaps="false"
+                            android:layout_marginLeft="10px" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:id="@+id/solar_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:text="Radiazione solare"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/solar_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:text="20 W/m² 100%"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAllCaps="false"
+                            android:layout_marginLeft="10px" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:id="@+id/uv_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:text="Radiazione UV"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/uv_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:text="0.0"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAllCaps="false"
+                            android:layout_marginLeft="10px" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:id="@+id/dew_temperature_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:text="Punto di rugiada"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/dew_temperature_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:text="20°C"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAllCaps="false"
+                            android:layout_marginLeft="10px" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:id="@+id/rain_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:text="Intesità pioggia"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/rain_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:text="20.0 mm/h"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAllCaps="false"
+                            android:layout_marginLeft="10px" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:id="@+id/snow_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:text="Altezza neve"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/snow_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:text="100 cm"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAllCaps="false"
+                            android:layout_marginLeft="10px" />
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+        </ScrollView>
     </FrameLayout>
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat
@@ -33,10 +392,12 @@
          android:layout_gravity="left" instead. -->
     <!-- The drawer is given a fixed width in dp and extends the full height of
          the container. -->
-    <fragment android:id="@+id/navigation_drawer"
-        android:layout_width="@dimen/navigation_drawer_width" android:layout_height="match_parent"
-        android:layout_gravity="start"
+    <fragment
+        android:id="@+id/navigation_drawer"
         android:name="com.alessandro.meteograppa.NavigationDrawerFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
         tools:layout="@layout/fragment_navigation_drawer" />
 
 </android.support.v4.widget.DrawerLayout>
