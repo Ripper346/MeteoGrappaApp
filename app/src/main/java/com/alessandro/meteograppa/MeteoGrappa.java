@@ -211,6 +211,11 @@ public class MeteoGrappa extends ActionBarActivity implements NavigationDrawerFr
         }
     }
 
+    public void refresh(){
+        initGraphPage();
+        new ManageData().execute(this);
+    }
+
     /**
      * Show the page selected from the link on the navigation tapped.
      *

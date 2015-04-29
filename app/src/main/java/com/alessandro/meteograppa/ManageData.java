@@ -21,7 +21,7 @@ public class ManageData extends AsyncTask {
     private LinkedTreeMap<String, Object> data;
     private String time;
     private float arrowWindRotation;
-    
+
     @Override
     protected Object doInBackground(Object... arg0) {
         activity = (MeteoGrappa) arg0[0];

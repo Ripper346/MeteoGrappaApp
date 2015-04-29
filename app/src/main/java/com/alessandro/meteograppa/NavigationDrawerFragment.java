@@ -1,5 +1,6 @@
 package com.alessandro.meteograppa;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -106,6 +107,7 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.title_section2)
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+
         return mDrawerListView;
     }
 
@@ -250,7 +252,9 @@ public class NavigationDrawerFragment extends Fragment {
 
         if (item.getItemId() == R.id.reload) {
             //reload
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+            FragmentActivity activity = this.getActivity();
+            if (activity instanceof MeteoGrappa)
+                ((MeteoGrappa) activity).refresh();
             return true;
         }
 
