@@ -3,6 +3,7 @@ package com.alessandro.meteograppa;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Path;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,15 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Spinner;
 import android.widget.AdapterView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class MeteoGrappa extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -31,7 +41,7 @@ public class MeteoGrappa extends ActionBarActivity implements NavigationDrawerFr
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-    private final String URL = "http://192.168.0.2:8080/MeteoGrappaServer/";
+    public final String URL = "http://192.168.0.2:8080/MeteoGrappaServer/";
     private ViewGroup[] tabs;
     private Spinner[] graphSettings;
     private String[] typeValueGraph;
@@ -48,12 +58,11 @@ public class MeteoGrappa extends ActionBarActivity implements NavigationDrawerFr
         mTitle = getTitle();
 
         // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+        mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
         setTabsNavigation();
         initGraphPage();
+        new ManageData().execute(this);
     }
 
     /**
