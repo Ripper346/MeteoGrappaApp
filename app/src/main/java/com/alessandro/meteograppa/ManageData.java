@@ -3,16 +3,16 @@ package com.alessandro.meteograppa;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
+ * Download and set last weather data.
+ *
  * Created by Alessandro on 29/04/2015.
  */
 public class ManageData extends AsyncTask {
@@ -21,15 +21,22 @@ public class ManageData extends AsyncTask {
     private LinkedTreeMap<String, Object> data;
     private String time;
     private float arrowWindRotation;
+    
     @Override
     protected Object doInBackground(Object... arg0) {
         activity = (MeteoGrappa) arg0[0];
+
+        // Download JSON
         ResourceDownloader resource = new ResourceDownloader(activity.URL + "lastData.json");
         String json = resource.getPage();
+
+        // Extract data from JSON
         Gson gson = new Gson();
         ArrayList list = gson.fromJson(json, ArrayList.class);
         ArrayList<String> wind = ((LinkedTreeMap<String, ArrayList>) list.get(0)).get("directions");
         data = ((LinkedTreeMap<String, Object>) list.get(1));
+
+        // Format date
         time = "";
         try {
             Date date = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss aa").parse((String) data.get("date"));
@@ -37,12 +44,15 @@ public class ManageData extends AsyncTask {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        // Calculate rotation of the wind direction arrow
         int index = -1;
         do {
             index++;
         } while (!wind.get(index).equals((String) data.get("windDirection")));
         arrowWindRotation = 22.5f * index;
 
+        // Set parameters on the container
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
