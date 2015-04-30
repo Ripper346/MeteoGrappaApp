@@ -89,7 +89,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="0"
-                            android:text="01/01/1970 00:00"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textAllCaps="false"
                             android:layout_marginLeft="10px" />
@@ -138,7 +137,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="0"
-                            android:text="0.0°C"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textAllCaps="false"
                             android:layout_marginLeft="10px" />
@@ -162,7 +160,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="1"
-                            android:text="0.0°C"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textAllCaps="false"
                             android:layout_marginLeft="10px" />
@@ -185,7 +182,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="1"
-                            android:text="100%"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textAllCaps="false"
                             android:layout_marginLeft="10px" />
@@ -216,7 +212,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_column="0"
-                                    android:text="20.0 km/h"
                                     android:textAppearance="?android:attr/textAppearanceMedium"
                                     android:textAllCaps="false"
                                     android:layout_marginLeft="10px" />
@@ -233,7 +228,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="?android:attr/textAppearanceMedium"
-                                    android:text="N"
                                     android:id="@+id/wind_direction_value"
                                     android:layout_marginLeft="7px" />
                             </TableRow>
@@ -259,7 +253,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="1"
-                            android:text="1000.0 hPa"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textAllCaps="false"
                             android:layout_marginLeft="10px" />
@@ -282,7 +275,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="1"
-                            android:text="20 W/m² 100%"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textAllCaps="false"
                             android:layout_marginLeft="10px" />
@@ -305,7 +297,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="0"
-                            android:text="0.0"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textAllCaps="false"
                             android:layout_marginLeft="10px" />
@@ -329,7 +320,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="1"
-                            android:text="20°C"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textAllCaps="false"
                             android:layout_marginLeft="10px" />
@@ -352,7 +342,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="1"
-                            android:text="20.0 mm/h"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textAllCaps="false"
                             android:layout_marginLeft="10px" />
@@ -375,7 +364,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_column="1"
-                            android:text="100 cm"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textAllCaps="false"
                             android:layout_marginLeft="10px" />

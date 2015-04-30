@@ -34,6 +34,7 @@ public class ResourceDownloader {
         try {
             page = Jsoup.connect(link).ignoreContentType(true).execute().body();
         } catch (IOException ex) {
+            page = null;
             Logger.getLogger(ResourceDownloader.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -41,7 +41,7 @@ public class MeteoGrappa extends ActionBarActivity implements NavigationDrawerFr
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-    public final String URL = "http://192.168.0.2:8080/MeteoGrappaServer/";
+    public final String URL = "http://ripper346.asuscomm.com:20000/MeteoGrappaServer/";
     private ViewGroup[] tabs;
     private Spinner[] graphSettings;
     private String[] typeValueGraph;
@@ -61,8 +61,7 @@ public class MeteoGrappa extends ActionBarActivity implements NavigationDrawerFr
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
         setTabsNavigation();
-        initGraphPage();
-        new ManageData().execute(this);
+        refresh();
     }
 
     /**
@@ -211,9 +210,12 @@ public class MeteoGrappa extends ActionBarActivity implements NavigationDrawerFr
         }
     }
 
-    public void refresh(){
-        initGraphPage();
+    /**
+     * Load the content data
+     */
+    public void refresh() {
         new ManageData().execute(this);
+        initGraphPage();
     }
 
     /**
@@ -254,5 +256,9 @@ public class MeteoGrappa extends ActionBarActivity implements NavigationDrawerFr
                         // Nothing to do
                     }
                 });
+    }
+
+    public void setGraphUrl(String graphUrl) {
+        this.graphUrl = graphUrl;
     }
 }
