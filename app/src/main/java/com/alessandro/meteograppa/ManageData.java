@@ -44,7 +44,7 @@ public class ManageData extends AsyncTask {
             // Format date
             time = "";
             try {
-                Date date = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss aa").parse((String) data.get("date"));
+                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss").parse((String) data.get("date"));
                 time = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(date);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -85,7 +85,7 @@ public class ManageData extends AsyncTask {
                     option = (TextView) activity.findViewById(R.id.dew_temperature_value);
                     option.setText((double) data.get("dewTemperature") + "°C");
                     option = (TextView) activity.findViewById(R.id.rain_value);
-                    option.setText((double) data.get("rain") + "mm/h");
+                    option.setText((double) data.get("rain") + " mm/h");
                     option = (TextView) activity.findViewById(R.id.snow_value);
                     option.setText(((Double) data.get("snow")).intValue() + " cm");
                     ImageView windDirectionImage = (ImageView) activity.findViewById(R.id.wind_direction_image);
