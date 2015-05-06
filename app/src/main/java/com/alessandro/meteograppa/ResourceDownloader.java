@@ -17,7 +17,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 /**
- * This class download the content of a web page.
+ * This class downloads the content of a web page.
  *
  * @author Alessandro
  */

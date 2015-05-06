@@ -16,8 +16,8 @@ import java.util.Date;
 
 /**
  * Download and set last weather data.
- * <p/>
- * Created by Alessandro on 29/04/2015.
+ *
+ * @author Alessandro
  */
 public class ManageData extends AsyncTask {
 
@@ -104,8 +104,5 @@ public class ManageData extends AsyncTask {
             });
         }
         return null;
-    }
-
-    public ManageData() {
     }
 }
